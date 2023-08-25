@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:valley_mobile/screens/register_screen.dart';
+import 'package:valley_mobile/screens/scan_screen.dart';
 import 'package:valley_mobile/widgets/text_widget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -13,7 +15,10 @@ class HomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const RegisterScreen()));
+              },
               child: Container(
                 height: 200,
                 width: 250,
@@ -49,7 +54,10 @@ class HomeScreen extends StatelessWidget {
               height: 50,
             ),
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ScanScreen()));
+              },
               child: Container(
                 height: 200,
                 width: 250,
