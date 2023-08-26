@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
+import 'package:valley_mobile/services/add_attendance.dart';
 import 'package:valley_mobile/widgets/text_widget.dart';
 
 import '../widgets/button_widget.dart';
@@ -79,6 +80,14 @@ class _ScanningScreenState extends State<ScanningScreen> {
                           }
 
                           // Add Atttendance
+                          addAttendance(
+                              name,
+                              idnumber,
+                              section,
+                              course,
+                              widget.attendancetype,
+                              widget.labname,
+                              widget.computernumber);
 
                           Navigator.of(context)
                               .pushReplacement(MaterialPageRoute(
