@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
+import 'package:ndef/record.dart';
+import 'package:valley_mobile/screens/home_screen.dart';
+import 'package:valley_mobile/widgets/button_widget.dart';
 import 'package:valley_mobile/widgets/text_widget.dart';
+import 'package:valley_mobile/widgets/toast_widget.dart';
 
 class RegisteringScreen extends StatefulWidget {
   String name;
@@ -42,6 +47,45 @@ class _RegisteringScreenState extends State<RegisteringScreen> {
                   text: 'Put now the NFC',
                   fontSize: 14,
                   color: Colors.blue,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                ButtonWidget(
+                  label: 'Register',
+                  onPressed: () async {
+                    var availability = await FlutterNfcKit.nfcAvailability;
+
+                    if (availability != NFCAvailability.available) {
+                      showToast('No NFC detected');
+                    } else {
+                      try {
+                        final customRecord = NDEFRawRecord(
+                          "student",
+                          "${widget.name},${widget.idnumber},${widget.course},${widget.section}",
+                          "student_data",
+                          TypeNameFormat.unknown,
+                        );
+
+                        await FlutterNfcKit.writeNDEFRawRecords([customRecord])
+                            .then((value) {
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const HomeScreen()))
+                              .then(
+                            (value) {
+                              showToast('Student registered succesfully!');
+                            },
+                          );
+                        });
+
+                        // Handle success
+                      } catch (e) {
+                        showToast(e);
+                        // Handle error
+                      }
+                    }
+                  },
                 ),
               ],
             ),
