@@ -39,6 +39,8 @@ dependencies:
   fluttertoast:
   nfc_manager:
   flutter_nfc_kit:
+  firebase_core:
+  cloud_firestore:
   
 
 dev_dependencies:

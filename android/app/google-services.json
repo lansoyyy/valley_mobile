@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "354930278705",
+    "project_id": "valley-9b203",
+    "storage_bucket": "valley-9b203.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354930278705:android:f0e4f165b95a63fd173010",
+        "android_client_info": {
+          "package_name": "com.example.valley_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "354930278705-jd7f9jiuoakcdvttm3sdu9r06ufhj1f4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQZQlpmvxxiPcgOK9vUqW2wokTf7bqGfo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "354930278705-jd7f9jiuoakcdvttm3sdu9r06ufhj1f4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
