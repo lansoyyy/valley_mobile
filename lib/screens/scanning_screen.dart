@@ -1,5 +1,12 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 import 'package:valley_mobile/widgets/text_widget.dart';
+
+import '../widgets/button_widget.dart';
+import '../widgets/toast_widget.dart';
+import 'home_screen.dart';
 
 class ScanningScreen extends StatefulWidget {
   String labname;
@@ -17,6 +24,10 @@ class ScanningScreen extends StatefulWidget {
 }
 
 class _ScanningScreenState extends State<ScanningScreen> {
+  String name = '';
+  String idnumber = '';
+  String course = '';
+  String section = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,6 +51,51 @@ class _ScanningScreenState extends State<ScanningScreen> {
                   text: 'Scan now the NFC',
                   fontSize: 14,
                   color: Colors.blue,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                ButtonWidget(
+                  label: 'Continue',
+                  onPressed: () async {
+                    var tag = await FlutterNfcKit.poll(
+                        timeout: const Duration(seconds: 10));
+                    var availability = await FlutterNfcKit.nfcAvailability;
+
+                    if (tag.ndefAvailable == true) {
+                      if (availability != NFCAvailability.available) {
+                        showToast('No NFC detected');
+                      } else {
+                        try {
+                          for (var record
+                              in await FlutterNfcKit.readNDEFRawRecords(
+                                  cached: false)) {
+                            setState(() {
+                              name = jsonEncode(record).split(',')[0];
+                              idnumber = jsonEncode(record).split(',')[1];
+                              course = jsonEncode(record).split(',')[2];
+                              section = jsonEncode(record).split(',')[3];
+                            });
+                          }
+
+                          // Add Atttendance
+
+                          Navigator.of(context)
+                              .pushReplacement(MaterialPageRoute(
+                                  builder: (context) => const HomeScreen()))
+                              .then(
+                            (value) {
+                              showToast('Attendance Recorded!');
+                            },
+                          );
+                        } catch (e) {
+                          showToast(e);
+                        }
+                      }
+                    } else {
+                      showToast('NFC Tag not available');
+                    }
+                  },
                 ),
               ],
             ),

@@ -54,36 +54,42 @@ class _RegisteringScreenState extends State<RegisteringScreen> {
                 ButtonWidget(
                   label: 'Register',
                   onPressed: () async {
+                    var tag = await FlutterNfcKit.poll(
+                        timeout: const Duration(seconds: 10));
                     var availability = await FlutterNfcKit.nfcAvailability;
 
-                    if (availability != NFCAvailability.available) {
-                      showToast('No NFC detected');
-                    } else {
-                      try {
-                        final customRecord = NDEFRawRecord(
-                          "student",
-                          "${widget.name},${widget.idnumber},${widget.course},${widget.section}",
-                          "student_data",
-                          TypeNameFormat.unknown,
-                        );
-
-                        await FlutterNfcKit.writeNDEFRawRecords([customRecord])
-                            .then((value) {
-                          Navigator.of(context)
-                              .pushReplacement(MaterialPageRoute(
-                                  builder: (context) => const HomeScreen()))
-                              .then(
-                            (value) {
-                              showToast('Student registered succesfully!');
-                            },
+                    if (tag.ndefWritable == true) {
+                      if (availability != NFCAvailability.available) {
+                        showToast('No NFC detected');
+                      } else {
+                        try {
+                          final customRecord = NDEFRawRecord(
+                            "student",
+                            "${widget.name},${widget.idnumber},${widget.course},${widget.section}",
+                            "student_data",
+                            TypeNameFormat.unknown,
                           );
-                        });
 
-                        // Handle success
-                      } catch (e) {
-                        showToast(e);
-                        // Handle error
+                          await FlutterNfcKit.writeNDEFRawRecords(
+                              [customRecord]).then((value) {
+                            Navigator.of(context)
+                                .pushReplacement(MaterialPageRoute(
+                                    builder: (context) => const HomeScreen()))
+                                .then(
+                              (value) {
+                                showToast('Student registered succesfully!');
+                              },
+                            );
+                          });
+
+                          // Handle success
+                        } catch (e) {
+                          showToast(e);
+                          // Handle error
+                        }
                       }
+                    } else {
+                      showToast('NFC Tag not writable');
                     }
                   },
                 ),
