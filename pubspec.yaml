@@ -38,6 +38,7 @@ dependencies:
   intl:
   fluttertoast:
   nfc_manager:
+  flutter_nfc_kit:
 
 dev_dependencies:
   flutter_test:

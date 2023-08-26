@@ -2,7 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:valley_mobile/widgets/text_widget.dart';
 
 class RegisteringScreen extends StatefulWidget {
-  const RegisteringScreen({super.key});
+  String name;
+  String idnumber;
+  String course;
+  String section;
+
+  RegisteringScreen(
+      {super.key,
+      required this.name,
+      required this.idnumber,
+      required this.course,
+      required this.section});
 
   @override
   State<RegisteringScreen> createState() => _RegisteringScreenState();

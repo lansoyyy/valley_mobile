@@ -107,7 +107,10 @@ class _ScanScreenState extends State<ScanScreen> {
               label: 'Continue',
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ScanningScreen()));
+                    builder: (context) => ScanningScreen(
+                        labname: labController.text,
+                        computernumber: computernumberController.text,
+                        attendancetype: selected)));
               },
             ),
           ],

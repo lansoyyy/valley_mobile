@@ -2,7 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:valley_mobile/widgets/text_widget.dart';
 
 class ScanningScreen extends StatefulWidget {
-  const ScanningScreen({super.key});
+  String labname;
+  String computernumber;
+  String attendancetype;
+
+  ScanningScreen(
+      {super.key,
+      required this.labname,
+      required this.computernumber,
+      required this.attendancetype});
 
   @override
   State<ScanningScreen> createState() => _ScanningScreenState();

@@ -67,7 +67,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
               label: 'Register',
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const RegisteringScreen()));
+                    builder: (context) => RegisteringScreen(
+                        name: nameController.text,
+                        idnumber: idnumberController.text,
+                        course: courseController.text,
+                        section: sectionController.text)));
               },
             ),
           ],
